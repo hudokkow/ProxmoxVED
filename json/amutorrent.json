@@ -1,0 +1,42 @@
+{
+  "name": "aMuTorrent",
+  "slug": "amutorrent",
+  "categories": [11],
+  "date_created": "2026-07-14",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "interface_port": 4000,
+  "documentation": "https://github.com/got3nks/amutorrent/blob/main/README.md",
+  "website": "https://github.com/got3nks/amutorrent",
+  "logo": "https://raw.githubusercontent.com/got3nks/amutorrent/main/static/logo-amutorrent.png",
+  "description": "Unified download manager for aMule, rTorrent, qBittorrent, Deluge and Transmission with a single modern web interface.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/amutorrent.sh",
+      "config_path": "/opt/amutorrent/.env",
+      "resources": {
+        "cpu": 2,
+        "ram": 2048,
+        "hdd": 8,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "Configure your download clients (aMule, rTorrent, qBittorrent, Deluge, Transmission) via the setup wizard at first login.",
+      "type": "info"
+    },
+    {
+      "text": "Apprise (push notifications) is installed via pip. LAN client connections are configured in the UI, not via Docker extra_hosts.",
+      "type": "info"
+    }
+  ]
+}
