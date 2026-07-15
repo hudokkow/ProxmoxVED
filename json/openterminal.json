@@ -1,0 +1,42 @@
+{
+  "name": "Open Terminal",
+  "slug": "openterminal",
+  "categories": [20],
+  "date_created": "2026-07-15",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "interface_port": 8000,
+  "documentation": "https://docs.openwebui.com/features/open-terminal/",
+  "website": "https://github.com/open-webui/open-terminal",
+  "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/open-webui.webp",
+  "description": "A lightweight, self-hosted terminal that gives AI agents and automation tools a dedicated environment to run commands, manage files, and execute code over a simple REST API. Replicates the latest most-complete image: ships Node.js 22, a GCC toolchain, FFmpeg, LaTeX and a data-science Python stack.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/openterminal.sh",
+      "config_path": "/opt/openterminal/.env",
+      "resources": {
+        "cpu": 2,
+        "ram": 2048,
+        "hdd": 8,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "API key is auto-generated at install and saved in /opt/openterminal/.env (OPEN_TERMINAL_API_KEY).",
+      "type": "info"
+    },
+    {
+      "text": "Commands run directly inside the LXC with root privileges. Only expose to trusted networks or behind the Open WebUI proxy.",
+      "type": "warning"
+    }
+  ]
+}
