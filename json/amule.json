@@ -1,0 +1,50 @@
+{
+  "name": "aMule",
+  "slug": "amule",
+  "categories": [
+    11
+  ],
+  "date_created": "2026-07-16",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "has_arm": true,
+  "interface_port": 4711,
+  "documentation": "https://amule-org.github.io/",
+  "website": "https://github.com/amule-org/amule",
+  "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/amule.webp",
+  "config_path": "/opt/amule/data/.aMule/amule.conf",
+  "description": "aMule is a free, open-source eD2k/Kad peer-to-peer file-sharing client with a headless daemon (amuled) and a built-in web interface (amuleweb).",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/amule.sh",
+      "config_path": "/opt/amule/data/.aMule/amule.conf",
+      "resources": {
+        "cpu": 2,
+        "ram": 1024,
+        "hdd": 8,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": "admin",
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "The web interface (amuleweb) and EC passwords are randomly generated MD5 hashes written to /opt/amule/data/.aMule/amule.conf during install.",
+      "type": "info"
+    },
+    {
+      "text": "Allow TCP and UDP traffic on port 4662 (eD2K), UDP 4672 (Kad), TCP 4711 (web UI) and TCP 4712 (EC) through your firewall.",
+      "type": "info"
+    },
+    {
+      "text": "aMule is built from source at install and update time; this requires the build toolchain and takes several minutes.",
+      "type": "warning"
+    }
+  ]
+}
