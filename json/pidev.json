@@ -1,0 +1,50 @@
+{
+  "name": "pidev",
+  "slug": "pidev",
+  "categories": [
+    20
+  ],
+  "date_created": "2026-07-16",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "has_arm": true,
+  "interface_port": 7681,
+  "documentation": "https://pi.dev/docs/latest",
+  "website": "https://github.com/earendil-works/pi",
+  "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/pi.webp",
+  "config_path": "/opt/pidev/pi.env",
+  "description": "pi is a self-extensible AI coding agent harness. The base install is lean; functionality is added via packages (web UI, knowledge base, chat integrations) installed at runtime with 'pi install'.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/pidev.sh",
+      "config_path": "/opt/pidev/pi.env",
+      "resources": {
+        "cpu": 2,
+        "ram": 2048,
+        "hdd": 8,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "pi itself has no web UI; this container exposes the interactive agent through ttyd in the browser on port 7681. A provider API key (ANTHROPIC_API_KEY, OPENAI_API_KEY, or GITHUB_TOKEN) is required and stored in /opt/pidev/pi.env.",
+      "type": "warning"
+    },
+    {
+      "text": "Extend pi with packages at runtime via 'pi install npm:<pkg>'. Useful examples: context-mode (SQLite knowledge base/RAG, no external DB), pi-intercom (Slack/Discord bridge), pi-hermes-memory (persistent memory), pi-mcp-adapter (connect MCP servers).",
+      "type": "info"
+    },
+    {
+      "text": "Browser access uses ttyd, which has no authentication by default. Restrict port 7681 with a reverse proxy or firewall before exposing it publicly.",
+      "type": "warning"
+    }
+  ]
+}
