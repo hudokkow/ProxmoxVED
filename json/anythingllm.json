@@ -1,0 +1,42 @@
+{
+  "name": "AnythingLLM",
+  "slug": "anythingllm",
+  "categories": [20],
+  "date_created": "2026-07-16",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "interface_port": 3001,
+  "documentation": "https://docs.anythingllm.com/",
+  "website": "https://anythingllm.com/",
+  "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/anythingllm.webp",
+  "description": "All-in-one desktop and Docker AI application for chatting with your documents, using a variety of LLM providers, embedders, and vector databases.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/anythingllm.sh",
+      "config_path": "/opt/anythingllm/server/.env",
+      "resources": {
+        "cpu": 2,
+        "ram": 4096,
+        "hdd": 12,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "The collector service requires Chromium for document processing; it is installed automatically.",
+      "type": "info"
+    },
+    {
+      "text": "All data (storage, database, uploads) lives in /opt/anythingllm/server/storage. Back it up before updating.",
+      "type": "warning"
+    }
+  ]
+}
