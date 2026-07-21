@@ -1,0 +1,37 @@
+{
+  "name": "LiveCodes",
+  "slug": "livecodes",
+  "categories": [20],
+  "date_created": "2026-05-21",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "interface_port": 8080,
+  "documentation": "https://livecodes.io/docs/",
+  "website": "https://livecodes.io/",
+  "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/livecodes.webp",
+  "description": "LiveCodes is a feature-rich, open-source, client-side code playground for React, Vue, Svelte, Solid, TypeScript, Python, Go, Ruby, PHP and 90+ languages/frameworks.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/livecodes.sh",
+      "resources": {
+        "cpu": 2,
+        "ram": 2048,
+        "hdd": 8,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "Access the playground at http://<IP>:8080",
+      "type": "info"
+    }
+  ]
+}
