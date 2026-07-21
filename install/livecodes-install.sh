@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Copyright (c) 2021-2026 community-scripts ORG
-# Author: ProxmoxVED Contributor (community-scripts)
+# Author: h.udo (hudokkow)
 # License: MIT | https://github.com/community-scripts/ProxmoxVED/raw/main/LICENSE
 # Source: https://github.com/live-codes/livecodes
 
@@ -28,6 +28,9 @@ server {
 
     root /var/www/livecodes;
     index index.html;
+
+    access_log /var/log/nginx/livecodes_access.log;
+    error_log /var/log/nginx/livecodes_error.log;
 
     # SPA-style fallback so deep links and share URLs resolve to the app
     location / {

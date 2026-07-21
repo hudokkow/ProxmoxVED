@@ -12,7 +12,7 @@ var_ram="${var_ram:-1024}"
 var_disk="${var_disk:-8}"
 var_os="${var_os:-debian}"
 var_version="${var_version:-13}"
-var_arm64="${var_arm64:-no}"
+var_arm64="${var_arm64:-yes}"
 var_unprivileged="${var_unprivileged:-1}"
 
 header_info "$APP"
@@ -35,17 +35,9 @@ function update_script() {
     systemctl stop nginx
     msg_ok "Stopped Service"
 
-    msg_info "Backing up Data"
-    mkdir -p /opt/livecodes_backup
-    cp -r /var/www/livecodes/. /opt/livecodes_backup/
-    msg_ok "Backed up Data"
+    create_backup /var/www/livecodes
 
-    CLEAN_INSTALL=1 fetch_and_deploy_gh_release "livecodes" "live-codes/livecodes" "prebuild" "latest" "/var/www" "livecodes-v*.tar.gz"
-
-    msg_info "Restoring Data"
-    cp -rn /opt/livecodes_backup/. /var/www/livecodes/
-    rm -rf /opt/livecodes_backup
-    msg_ok "Restored Data"
+    CLEAN_INSTALL=1 fetch_and_deploy_gh_release "livecodes" "live-codes/livecodes" "prebuild" "latest" "/var/www/livecodes" "livecodes-v*.tar.gz"
 
     msg_info "Starting Service"
     systemctl start nginx
