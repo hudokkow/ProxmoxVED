@@ -33,19 +33,16 @@ msg_ok "Cloned LiveCodes"
 
 msg_info "Building LiveCodes (Patience)"
 cd /opt/livecodes
-$STD npm ci
+$STD npm ci --ignore-scripts
+$STD npx patch-package
 $STD cp -r src/livecodes/html/sandbox server/src/sandbox
+cd server && $STD npm ci && cd ..
 SELF_HOSTED=true \
   SANDBOX_HOST_NAME="${IP}" \
   SANDBOX_PORT=8090 \
   BROADCAST_PORT=3030 \
   $STD npm run build:app
 msg_ok "Built LiveCodes"
-
-msg_info "Installing Server Dependencies"
-cd /opt/livecodes/server
-$STD npm ci
-msg_ok "Installed Server Dependencies"
 
 msg_info "Creating Caddy Site"
 cat <<EOF >/etc/caddy/Caddyfile

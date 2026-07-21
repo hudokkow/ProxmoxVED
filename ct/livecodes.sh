@@ -8,7 +8,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/../misc/build.func" 2>/dev/null || source
 APP="LiveCodes"
 var_tags="${var_tags:-dev-tools;code;playground}"
 var_cpu="${var_cpu:-2}"
-var_ram="${var_ram:-2048}"
+var_ram="${var_ram:-4096}"
 var_disk="${var_disk:-8}"
 var_os="${var_os:-debian}"
 var_version="${var_version:-13}"
@@ -41,15 +41,15 @@ function update_script() {
     $STD git pull
     LATEST_TAG=$(curl -s https://api.github.com/repos/live-codes/livecodes/releases/latest | jq -r '.tag_name')
     $STD git checkout "$LATEST_TAG"
-    $STD npm ci
+    $STD npm ci --ignore-scripts
+    $STD npx patch-package
     $STD cp -r src/livecodes/html/sandbox server/src/sandbox
+    cd server && $STD npm ci && cd ..
     SELF_HOSTED=true \
       SANDBOX_HOST_NAME="${IP}" \
       SANDBOX_PORT=8090 \
       BROADCAST_PORT=3030 \
       $STD npm run build:app
-    cd server
-    $STD npm ci
     msg_ok "Updated LiveCodes"
 
     msg_info "Starting Service"
