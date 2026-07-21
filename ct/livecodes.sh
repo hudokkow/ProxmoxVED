@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
-source "$(dirname "${BASH_SOURCE[0]}")/../misc/build.func" 2>/dev/null || source <(curl -fsSL "${COMMUNITY_SCRIPTS_URL:-https://raw.githubusercontent.com/community-scripts/ProxmoxVED/main}/misc/build.func")
+_CS_DEFAULT_URL="https://raw.githubusercontent.com/community-scripts/DevScripts/main"
+# Engine comes from community-scripts/core; this repo only ships the scripts.
+# A local core checkout wins (COMMUNITY_SCRIPTS_CORE_DIR, else a sibling ../core),
+# so a fork or branch of core can be tested without editing this file.
+_cs_boot="${COMMUNITY_SCRIPTS_CORE_DIR:-$(dirname "${BASH_SOURCE[0]}")/../../core}/core/build.func"
+source "$_cs_boot" 2>/dev/null || source <(curl -fsSL "${COMMUNITY_SCRIPTS_CORE_URL:-https://raw.githubusercontent.com/community-scripts/core/main}/core/build.func")
 # Copyright (c) 2021-2026 community-scripts ORG
 # Author: h.udo (hudokkow)
-# License: MIT | https://github.com/community-scripts/ProxmoxVED/raw/main/LICENSE
+# License: MIT | https://github.com/community-scripts/DevScripts/raw/main/LICENSE
 # Source: https://github.com/live-codes/livecodes
 
 APP="LiveCodes"
@@ -12,7 +17,7 @@ var_ram="${var_ram:-1024}"
 var_disk="${var_disk:-8}"
 var_os="${var_os:-debian}"
 var_version="${var_version:-13}"
-var_arm64="${var_arm64:-no}"
+var_arm64="${var_arm64:-yes}"
 var_unprivileged="${var_unprivileged:-1}"
 
 header_info "$APP"
@@ -35,17 +40,9 @@ function update_script() {
     systemctl stop nginx
     msg_ok "Stopped Service"
 
-    msg_info "Backing up Data"
-    mkdir -p /opt/livecodes_backup
-    cp -r /var/www/livecodes/. /opt/livecodes_backup/
-    msg_ok "Backed up Data"
+    create_backup /var/www/livecodes
 
-    CLEAN_INSTALL=1 fetch_and_deploy_gh_release "livecodes" "live-codes/livecodes" "prebuild" "latest" "/var/www" "livecodes-v*.tar.gz"
-
-    msg_info "Restoring Data"
-    cp -rn /opt/livecodes_backup/. /var/www/livecodes/
-    rm -rf /opt/livecodes_backup
-    msg_ok "Restored Data"
+    CLEAN_INSTALL=1 fetch_and_deploy_gh_release "livecodes" "live-codes/livecodes" "prebuild" "latest" "/var/www/livecodes" "livecodes-v*.tar.gz"
 
     msg_info "Starting Service"
     systemctl start nginx

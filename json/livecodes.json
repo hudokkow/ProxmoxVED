@@ -6,6 +6,7 @@
   "type": "ct",
   "updateable": true,
   "privileged": false,
+  "has_arm": true,
   "interface_port": 80,
   "documentation": "https://livecodes.io/docs/features/self-host/",
   "website": "https://livecodes.io/",
@@ -15,7 +16,6 @@
     {
       "type": "default",
       "script": "ct/livecodes.sh",
-      "config_path": null,
       "resources": {
         "cpu": 1,
         "ram": 1024,
