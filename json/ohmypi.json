@@ -1,0 +1,48 @@
+{
+  "name": "Oh-My-Pi",
+  "slug": "ohmypi",
+  "categories": [
+    20
+  ],
+  "date_created": "2026-07-21",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "has_arm": true,
+  "interface_port": null,
+  "documentation": "https://omp.sh/docs",
+  "website": "https://omp.sh",
+  "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/ohmypi.webp",
+  "description": "Oh-My-Pi (omp) is a terminal-based AI coding agent with hash-anchored edits, LSP integration, built-in tools, subagents, and support for 40+ model providers. A batteries-included fork of Pi by Mario Zechner.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/ohmypi.sh",
+      "resources": {
+        "cpu": 2,
+        "ram": 2048,
+        "hdd": 8,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "Run 'omp' in your terminal to start. First run will launch the setup wizard to configure your model provider.",
+      "type": "info"
+    },
+    {
+      "text": "Oh-My-Pi requires an API key for at least one supported model provider (Anthropic, OpenAI, Google, etc.).",
+      "type": "warning"
+    },
+    {
+      "text": "Documentation and configuration guide: https://omp.sh/docs",
+      "type": "info"
+    }
+  ]
+}
