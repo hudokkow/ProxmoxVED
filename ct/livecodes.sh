@@ -7,8 +7,8 @@ source "$(dirname "${BASH_SOURCE[0]}")/../misc/build.func" 2>/dev/null || source
 
 APP="LiveCodes"
 var_tags="${var_tags:-dev-tools;code;playground}"
-var_cpu="${var_cpu:-1}"
-var_ram="${var_ram:-1024}"
+var_cpu="${var_cpu:-2}"
+var_ram="${var_ram:-2048}"
 var_disk="${var_disk:-8}"
 var_os="${var_os:-debian}"
 var_version="${var_version:-13}"
@@ -25,30 +25,36 @@ function update_script() {
   check_container_storage
   check_container_resources
 
-  if [[ ! -d /var/www/livecodes ]]; then
+  if [[ ! -d /opt/livecodes/build ]]; then
     msg_error "No ${APP} Installation Found!"
     exit
   fi
 
   if check_for_gh_release "livecodes" "live-codes/livecodes"; then
     msg_info "Stopping Service"
-    systemctl stop nginx
+    systemctl stop livecodes
+    systemctl stop caddy
     msg_ok "Stopped Service"
 
-    msg_info "Backing up Data"
-    mkdir -p /opt/livecodes_backup
-    cp -r /var/www/livecodes/. /opt/livecodes_backup/
-    msg_ok "Backed up Data"
-
-    CLEAN_INSTALL=1 fetch_and_deploy_gh_release "livecodes" "live-codes/livecodes" "prebuild" "latest" "/var/www" "livecodes-v*.tar.gz"
-
-    msg_info "Restoring Data"
-    cp -rn /opt/livecodes_backup/. /var/www/livecodes/
-    rm -rf /opt/livecodes_backup
-    msg_ok "Restored Data"
+    msg_info "Updating LiveCodes (Patience)"
+    cd /opt/livecodes
+    $STD git pull
+    LATEST_TAG=$(curl -s https://api.github.com/repos/live-codes/livecodes/releases/latest | jq -r '.tag_name')
+    $STD git checkout "$LATEST_TAG"
+    $STD npm ci
+    $STD cp -r src/livecodes/html/sandbox server/src/sandbox
+    SELF_HOSTED=true \
+      SANDBOX_HOST_NAME="${IP}" \
+      SANDBOX_PORT=8090 \
+      BROADCAST_PORT=3030 \
+      $STD npm run build:app
+    cd server
+    $STD npm ci
+    msg_ok "Updated LiveCodes"
 
     msg_info "Starting Service"
-    systemctl start nginx
+    systemctl start caddy
+    systemctl start livecodes
     msg_ok "Started Service"
     msg_ok "Updated successfully!"
   fi

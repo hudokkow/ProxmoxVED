@@ -7,18 +7,18 @@
   "updateable": true,
   "privileged": false,
   "interface_port": 80,
-  "documentation": "https://livecodes.io/docs/features/self-host/",
+  "documentation": "https://livecodes.io/docs/features/self-hosting/",
   "website": "https://livecodes.io/",
   "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/livecodes.webp",
-  "description": "A feature-rich, open-source, client-side code playground that runs 90+ languages and frameworks directly in the browser. Self-hosting serves the prebuilt static app via nginx with no backend required.",
+  "description": "A feature-rich, open-source, client-side code playground that runs 90+ languages and frameworks directly in the browser. Self-hosted with Node.js server and Caddy reverse proxy, mirroring the upstream Docker setup.",
   "install_methods": [
     {
       "type": "default",
       "script": "ct/livecodes.sh",
       "config_path": null,
       "resources": {
-        "cpu": 1,
-        "ram": 1024,
+        "cpu": 2,
+        "ram": 2048,
         "hdd": 8,
         "os": "Debian",
         "version": "13"
@@ -31,7 +31,7 @@
   },
   "notes": [
     {
-      "text": "LiveCodes is fully client-side; the container only serves the static build with nginx. Optional server-side features (broadcast, share, separate-origin sandbox) require the project's Docker setup and are out of scope for this script.",
+      "text": "Build from source with SELF_HOSTED=true to use the local sandbox server. The prebuilt release tarball uses an external Cloudflare Pages sandbox which can cause loading issues.",
       "type": "info"
     },
     {
