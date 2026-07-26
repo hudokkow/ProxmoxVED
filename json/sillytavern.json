@@ -1,0 +1,49 @@
+{
+  "name": "SillyTavern",
+  "slug": "sillytavern",
+  "categories": [
+    20
+  ],
+  "date_created": "2026-07-26",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "has_arm": true,
+  "interface_port": 80,
+  "documentation": "https://docs.sillytavern.app/",
+  "website": "https://sillytavern.app/",
+  "logo": "https://raw.githubusercontent.com/SillyTavern/SillyTavern/main/public/img/logo.png",
+  "description": "LLM Frontend for Power Users — a unified interface for many LLM APIs (OpenAI, Claude, Mistral, KoboldAI, NovelAI, and more) with visual novel mode, world/lorebook support, image generation integration, TTS, and extensive customization.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/sillytavern.sh",
+      "config_path": "/opt/sillytavern/config.yaml",
+      "resources": {
+        "cpu": 2,
+        "ram": 2048,
+        "hdd": 8,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "SillyTavern requires a modern browser with JavaScript enabled. No built-in authentication — restrict access via network or reverse proxy.",
+      "type": "warning"
+    },
+    {
+      "text": "User data (characters, worlds, settings) is stored in /opt/sillytavern/data/.",
+      "type": "info"
+    },
+    {
+      "text": "SillyTavern runs on port 8000 by default. A reverse proxy is recommended for HTTPS and production use.",
+      "type": "info"
+    }
+  ]
+}
