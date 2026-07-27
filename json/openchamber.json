@@ -1,0 +1,53 @@
+{
+  "name": "OpenChamber",
+  "slug": "openchamber",
+  "categories": [
+    20
+  ],
+  "date_created": "2026-07-27",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "has_arm": true,
+  "interface_port": 80,
+  "documentation": "https://github.com/openchamber/openchamber",
+  "website": "https://github.com/openchamber/openchamber",
+  "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/openchamber.webp",
+  "description": "OpenChamber is a rich desktop, web, and mobile UI for the OpenCode AI agent with a chat timeline, diff viewer, integrated terminal, Git workflows, file browser, multi-agent runs, voice mode, and PR creation.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/openchamber.sh",
+      "config_path": "/opt/openchamber/.env",
+      "resources": {
+        "cpu": 2,
+        "ram": 2048,
+        "hdd": 8,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "Access OpenChamber in your browser at http://<container-ip>. The UI password is auto-generated and stored in /opt/openchamber/.env (OPENCHAMBER_UI_PASSWORD).",
+      "type": "info"
+    },
+    {
+      "text": "Bundles OpenCode server on port 4095 as a backend. OpenCode password is stored in /opt/opencode/.env (OPENCODE_SERVER_PASSWORD).",
+      "type": "info"
+    },
+    {
+      "text": "Config and session data is stored in /root/.config/openchamber/ and /root/.config/opencode/.",
+      "type": "info"
+    },
+    {
+      "text": "Documentation and configuration guide: https://github.com/openchamber/openchamber",
+      "type": "info"
+    }
+  ]
+}
