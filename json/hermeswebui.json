@@ -1,0 +1,46 @@
+{
+  "name": "HermesWebUI",
+  "slug": "hermeswebui",
+  "categories": [20],
+  "date_created": "2026-07-28",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "has_arm": true,
+  "interface_port": 80,
+  "documentation": "https://hermes-agent.nousresearch.com/docs/getting-started/installation",
+  "website": "https://github.com/NousResearch/hermes-agent",
+  "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/hermes.webp",
+  "description": "Hermes Agent by NousResearch with the community Hermes WebUI - a self-extensible AI coding agent accessible from a browser.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/hermeswebui.sh",
+      "resources": {
+        "cpu": 2,
+        "ram": 4096,
+        "hdd": 8,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "Access HermesWebUI in your browser at http://<container-ip>.",
+      "type": "info"
+    },
+    {
+      "text": "Config, sessions, and skills are stored in /root/.hermes/.",
+      "type": "info"
+    },
+    {
+      "text": "Documentation and configuration guide: https://hermes-agent.nousresearch.com/docs/getting-started/installation",
+      "type": "info"
+    }
+  ]
+}
