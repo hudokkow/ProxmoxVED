@@ -1,0 +1,52 @@
+{
+  "name": "littlecoder",
+  "slug": "littlecoder",
+  "categories": [
+    20
+  ],
+  "date_created": "2026-07-30",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "has_arm": true,
+  "interface_port": 80,
+  "documentation": "https://github.com/itayinbarr/little-coder",
+  "website": "https://github.com/itayinbarr/little-coder",
+  "logo": "https://github.com/itayinbarr/little-coder/raw/main/assets/banner.svg",
+  "description": "A coding agent tuned for small local models, built on top of pi. Exposed via ttyd for browser-based terminal access.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/littlecoder.sh",
+      "resources": {
+        "cpu": 2,
+        "ram": 2048,
+        "hdd": 8,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "Access littlecoder in your browser at http://<container-ip>. The first run launches the interactive setup.",
+      "type": "info"
+    },
+    {
+      "text": "Config and session data is stored in ~/.config/little-coder/.",
+      "type": "info"
+    },
+    {
+      "text": "Browser access uses ttyd, which has no authentication by default. Restrict port 80 with a reverse proxy or firewall before exposing it publicly.",
+      "type": "warning"
+    },
+    {
+      "text": "Requires a local LLM server running alongside littlecoder (e.g. llama.cpp on port 8888).",
+      "type": "info"
+    }
+  ]
+}
