@@ -1,0 +1,53 @@
+{
+  "name": "Pi Web",
+  "slug": "pi-web",
+  "categories": [
+    20
+  ],
+  "date_created": "2026-07-30",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "has_arm": true,
+  "interface_port": 80,
+  "documentation": "https://pi-web.dev/",
+  "website": "https://github.com/jmfederico/pi-web",
+  "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/pi.webp",
+  "description": "Pi Web is a web UI for Pi Coding Agent that keeps agent sessions alive in real workspaces. Provides a browser-based interface to manage multiple Pi Coding Agent sessions, supervise runs, and work with real repositories from anywhere.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/piweb.sh",
+      "resources": {
+        "cpu": 2,
+        "ram": 2048,
+        "hdd": 8,
+        "os": "Debian",
+        "version": "13"
+      },
+      "config_path": "/root/.config/pi-web/config.json"
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+        "text": "Access Pi Web in your browser at http://<container-ip>:80.",
+        "type": "info"
+    },
+    {
+        "text": "Browser access has no authentication by default. Restrict port 80 with a reverse proxy or firewall before exposing it publicly.",
+        "type": "warning"
+    },
+    {
+      "text": "Config and session data is stored in ~/.config/pi-web/ and ~/.pi-web/.",
+      "type": "info"
+    },
+    {
+      "text": "Requires Node.js 22.19.0 or newer. Installed globally via npm.",
+      "type": "info"
+    }
+  ]
+}
