@@ -1,0 +1,53 @@
+{
+  "name": "Swetrix",
+  "slug": "swetrix",
+  "categories": [
+    9
+  ],
+  "date_created": "2026-07-31",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "has_arm": true,
+  "interface_port": 80,
+  "documentation": "https://swetrix.com/docs/selfhosting/how-to",
+  "website": "https://swetrix.com",
+  "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/swetrix.webp",
+  "description": "Swetrix is a privacy-first, cookie-less web analytics platform with built-in error tracking and performance monitoring. A Google Analytics alternative that you can self-host, with the dashboard served by nginx on port 80.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/swetrix.sh",
+      "config_path": "/opt/swetrix/backend/.env",
+      "resources": {
+        "cpu": 2,
+        "ram": 4096,
+        "hdd": 16,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "Access Swetrix in your browser at http://<container-ip>. The first run launches the onboarding flow where you create your account.",
+      "type": "info"
+    },
+    {
+      "text": "Registration is disabled by default (DISABLE_REGISTRATION=true in /opt/swetrix/backend/.env). Set it to false to allow additional account creation.",
+      "type": "info"
+    },
+    {
+      "text": "Analytics data is stored in ClickHouse at /var/lib/clickhouse. Make sure to back it up before major updates, or use the Statistics API to export your data.",
+      "type": "warning"
+    },
+    {
+      "text": "If you put Swetrix behind a reverse proxy, update BASE_URL in /opt/swetrix/backend/.env and /opt/swetrix/web/.env to your public URL and restart the services.",
+      "type": "info"
+    }
+  ]
+}
