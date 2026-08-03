@@ -14,14 +14,15 @@ network_check
 update_os
 
 ARCH=$(arch_resolve x64 arm64)
-fetch_and_deploy_gh_release "opencode" "anomalyco/opencode" "prebuild" "latest" "/usr/local/bin" "opencode-linux-${ARCH}.tar.gz"
+fetch_and_deploy_gh_release "opencode" "anomalyco/opencode" "prebuild" "latest" "/opt/opencode" "opencode-linux-${ARCH}.tar.gz"
 
 OPENCODE_SERVER_PASSWORD=$(openssl rand -hex 16)
 
 msg_info "Creating Configuration"
-mkdir -p /opt/opencode
+mkdir -p /opt/opencode/.config
 cat <<EOF >/opt/opencode/.env
 OPENCODE_SERVER_PASSWORD=${OPENCODE_SERVER_PASSWORD}
+OPENCODE_CONFIG_DIR=/opt/opencode/.config
 EOF
 msg_ok "Created Configuration"
 
@@ -36,7 +37,7 @@ Type=simple
 User=root
 WorkingDirectory=/opt/opencode
 EnvironmentFile=/opt/opencode/.env
-ExecStart=/usr/local/bin/opencode serve --port 80 --hostname 0.0.0.0
+ExecStart=/opt/opencode/opencode serve --port 80 --hostname 0.0.0.0
 Restart=on-failure
 RestartSec=5
 

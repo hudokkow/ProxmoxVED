@@ -26,7 +26,7 @@ function update_script() {
   check_container_storage
   check_container_resources
 
-  if [[ ! -f /usr/local/bin/opencode ]]; then
+  if [[ ! -f /opt/opencode/opencode ]]; then
     msg_error "No ${APP} Installation Found!"
     exit
   fi
@@ -36,10 +36,10 @@ function update_script() {
     systemctl stop opencode
     msg_ok "Stopped Service"
 
-    create_backup /etc/systemd/system/opencode.service /opt/opencode/.env
+    create_backup /etc/systemd/system/opencode.service /opt/opencode/.config /opt/opencode/.env
 
     ARCH=$(arch_resolve x64 arm64)
-    fetch_and_deploy_gh_release "opencode" "anomalyco/opencode" "prebuild" "latest" "/usr/local/bin" "opencode-linux-${ARCH}.tar.gz"
+    fetch_and_deploy_gh_release "opencode" "anomalyco/opencode" "prebuild" "latest" "/opt/opencode" "opencode-linux-${ARCH}.tar.gz"
 
     restore_backup
 
