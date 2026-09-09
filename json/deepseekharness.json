@@ -1,0 +1,44 @@
+{
+  "name": "DeepSeekHarness",
+  "slug": "deepseekharness",
+  "categories": [20],
+  "date_created": "2026-09-09",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "interface_port": 3080,
+  "documentation": "https://deepseek-harness.github.io/deepseek-harness/",
+  "website": "https://deepseek.com/harness",
+  "repository": "https://github.com/deepseek-ai/deepseek-harness",
+  "architectures": ["amd64"],
+  "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/deepseek.webp",
+  "description": "DeepSeek Harness is an open-source agent harness built on an everything-is-a-plugin architecture. It provides a web UI for running AI agents with file editing, shell access, and plugin extensibility.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/deepseekharness.sh",
+      "config_path": "/opt/deepseekharness/.env",
+      "resources": {
+        "cpu": 2,
+        "ram": 4096,
+        "hdd": 8,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "Requires an API key to use. Configure it via Settings > Models in the web UI.",
+      "type": "info"
+    },
+    {
+      "text": "The build step requires ~4GB RAM. Reduce var_ram at your own risk.",
+      "type": "warning"
+    }
+  ]
+}
