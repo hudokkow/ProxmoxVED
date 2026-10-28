@@ -4,14 +4,18 @@
   "categories": [
     20
   ],
-  "date_created": "2026-07-30",
+  "date_created": "2026-10-28",
   "type": "ct",
   "updateable": true,
   "privileged": false,
-  "has_arm": true,
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
   "interface_port": 80,
   "documentation": "https://github.com/itayinbarr/little-coder",
   "website": "https://github.com/itayinbarr/little-coder",
+  "repository": "https://github.com/itayinbarr/little-coder",
   "logo": "https://github.com/itayinbarr/little-coder/raw/main/assets/banner.svg",
   "description": "A coding agent tuned for small local models, built on top of pi. Exposed via ttyd for browser-based terminal access.",
   "install_methods": [
