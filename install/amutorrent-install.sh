@@ -2,7 +2,7 @@
 
 # Copyright (c) 2021-2026 community-scripts ORG
 # Author: h.udo (hudokkow)
-\#\ License\:\ MIT\ \|\ https\:\/\/github\.com\/community\-scripts\/DevScripts\/raw\/main\/LICENSE
+# License: MIT | https://github.com/community-scripts/DevScripts/raw/main/LICENSE
 # Source: https://github.com/got3nks/amutorrent
 
 source /dev/stdin <<<"$FUNCTIONS_FILE_PATH"
@@ -13,23 +13,10 @@ setting_up_container
 network_check
 update_os
 
-msg_info "Installing Dependencies"
-$STD apt install -y \
-  git \
-  python3 \
-  python3-pip \
-  make \
-  g++
-msg_ok "Installed Dependencies"
-
 NODE_VERSION="22" setup_nodejs
 PYTHON_VERSION="3.12" setup_uv
 
-msg_info "Installing Apprise (push notifications)"
-$STD uv pip install apprise
-msg_ok "Installed Apprise"
-
-fetch_and_deploy_gh_release "amutorrent" "got3nks/amutorrent" "tarball"
+fetch_and_deploy_gh_release "amutorrent" "got3nks/amutorrent" "tarball" "latest" "/opt/amutorrent"
 
 msg_info "Building Frontend"
 cd /opt/amutorrent
@@ -41,6 +28,10 @@ msg_info "Installing Server Dependencies"
 cd /opt/amutorrent/server
 $STD npm ci --omit=dev
 msg_ok "Installed Server Dependencies"
+
+msg_info "Installing Apprise (push notifications)"
+$STD uv pip install apprise
+msg_ok "Installed Apprise"
 
 msg_info "Setting up Directories"
 mkdir -p /opt/amutorrent/server/data /opt/amutorrent/server/logs

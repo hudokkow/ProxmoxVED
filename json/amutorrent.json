@@ -1,16 +1,23 @@
 {
   "name": "aMuTorrent",
   "slug": "amutorrent",
-  "categories": [11],
-  "date_created": "2026-07-14",
+  "categories": [
+    11
+  ],
+  "date_created": "2026-10-28",
   "type": "ct",
   "updateable": true,
   "privileged": false,
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
   "interface_port": 4000,
-  "documentation": "https://github.com/got3nks/amutorrent/blob/main/README.md",
+  "documentation": "https://github.com/got3nks/amutorrent/blob/main/docs/CONFIGURATION.md",
   "website": "https://github.com/got3nks/amutorrent",
+  "repository": "https://github.com/got3nks/amutorrent",
   "logo": "https://raw.githubusercontent.com/got3nks/amutorrent/main/static/logo-amutorrent.png",
-  "description": "Unified download manager for aMule, rTorrent, qBittorrent, Deluge and Transmission with a single modern web interface.",
+  "description": "A unified download manager for aMule, rTorrent, qBittorrent, Deluge and Transmission: manage ED2K and BitTorrent downloads from a single modern web interface.",
   "install_methods": [
     {
       "type": "default",

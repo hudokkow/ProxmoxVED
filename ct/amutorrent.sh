@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 _CS_DEFAULT_URL="https://raw.githubusercontent.com/community-scripts/DevScripts/main"
-# Engine comes from community-scripts/core; this repo only ships the scripts.
-# A local core checkout wins (COMMUNITY_SCRIPTS_CORE_DIR, else a sibling ../core),
-# so a fork or branch of core can be tested without editing this file.
 _cs_boot="${COMMUNITY_SCRIPTS_CORE_DIR:-$(dirname "${BASH_SOURCE[0]}")/../../core}/core/build.func"
 source "$_cs_boot" 2>/dev/null || source <(curl -fsSL "${COMMUNITY_SCRIPTS_CORE_URL:-https://raw.githubusercontent.com/community-scripts/core/main}/core/build.func")
 # Copyright (c) 2021-2026 community-scripts ORG
@@ -17,7 +14,7 @@ var_ram="${var_ram:-2048}"
 var_disk="${var_disk:-8}"
 var_os="${var_os:-debian}"
 var_version="${var_version:-13}"
-var_arm64="${var_arm64:-no}"
+var_arm64="${var_arm64:-yes}"
 var_unprivileged="${var_unprivileged:-1}"
 
 header_info "$APP"
@@ -30,7 +27,7 @@ function update_script() {
   check_container_storage
   check_container_resources
 
-  if [[ ! -d /opt/amutorrent ]]; then
+  if [[ ! -f /opt/amutorrent/server/server.js ]]; then
     msg_error "No ${APP} Installation Found!"
     exit
   fi
@@ -40,9 +37,7 @@ function update_script() {
     systemctl stop amutorrent
     msg_ok "Stopped Service"
 
-    create_backup /opt/amutorrent/server/data /opt/amutorrent/server/logs
-
-    CLEAN_INSTALL=1 fetch_and_deploy_gh_release "amutorrent" "got3nks/amutorrent" "tarball"
+    CLEAN_INSTALL=1 CLEAN_INSTALL_KEEP="server/data server/logs" fetch_and_deploy_gh_release "amutorrent" "got3nks/amutorrent" "tarball" "latest" "/opt/amutorrent"
 
     msg_info "Building Frontend"
     cd /opt/amutorrent
@@ -54,8 +49,6 @@ function update_script() {
     cd /opt/amutorrent/server
     $STD npm ci --omit=dev
     msg_ok "Installed Server Dependencies"
-
-    restore_backup
 
     msg_info "Starting Service"
     systemctl start amutorrent
