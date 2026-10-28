@@ -2,8 +2,8 @@
 
 # Copyright (c) 2021-2026 community-scripts ORG
 # Author: h.udo (hudokkow)
-\#\ License\:\ MIT\ \|\ https\:\/\/github\.com\/community\-scripts\/DevScripts\/raw\/main\/LICENSE
-# Source: https://github.com/MoonshotAI/kimi-cli
+# License: MIT | https://github.com/community-scripts/DevScripts/raw/main/LICENSE
+# Source: https://github.com/MoonshotAI/kimi-code
 
 source /dev/stdin <<<"$FUNCTIONS_FILE_PATH"
 color
@@ -13,16 +13,37 @@ setting_up_container
 network_check
 update_os
 
-TTYD_ARCH=$(arch_resolve x86_64 aarch64)
-fetch_and_deploy_gh_release "ttyd" "tsl0922/ttyd" "singlefile" "latest" "/usr/local/bin" "ttyd.${TTYD_ARCH}"
+msg_info "Installing Dependencies"
+$STD apt install -y \
+  build-essential
+msg_ok "Installed Dependencies"
 
-ARCH=$(arch_resolve x86_64 aarch64)
-fetch_and_deploy_gh_release "kimi-cli" "MoonshotAI/kimi-cli" "prebuild" "latest" "/usr/local/bin" "kimi-*-${ARCH}-unknown-linux-gnu.tar.gz"
+NODE_VERSION="24" setup_nodejs
+
+msg_info "Installing pnpm"
+$STD npm install -g pnpm
+msg_ok "Installed pnpm"
+
+fetch_and_deploy_gh_release "ttyd" "tsl0922/ttyd" "singlefile" "latest" "/usr/local/bin" "ttyd.$(arch_resolve "x86_64" "aarch64")"
+
+fetch_and_deploy_gh_branch "kimicli" "MoonshotAI/kimi-code" "main" "/opt/kimicli"
+
+msg_info "Installing Dependencies"
+cd /opt/kimicli
+$STD pnpm install
+msg_ok "Installed Dependencies"
+
+msg_info "Building Kimi Code"
+$STD pnpm run build
+msg_ok "Built Kimi Code"
+
+ln -sf /opt/kimicli/apps/kimi-code/dist/main.mjs /usr/local/bin/kimi
+msg_ok "Linked binary"
 
 msg_info "Creating Service"
-cat <<EOF >/etc/systemd/system/kimi-cli.service
+cat <<EOF >/etc/systemd/system/kimicli.service
 [Unit]
-Description=Kimi CLI Web Terminal
+Description=Kimi Code CLI Web Terminal
 After=network.target
 
 [Service]
@@ -35,7 +56,7 @@ RestartSec=5
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl enable -q --now kimi-cli
+systemctl enable -q --now kimicli
 msg_ok "Created Service"
 
 motd_ssh

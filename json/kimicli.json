@@ -1,27 +1,31 @@
 {
-  "name": "Kimi CLI",
+  "name": "Kimi Code",
   "slug": "kimicli",
   "categories": [
     20
   ],
-  "date_created": "2026-07-27",
+  "date_created": "2026-10-28",
   "type": "ct",
   "updateable": true,
   "privileged": false,
-  "has_arm": true,
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
   "interface_port": 80,
-  "documentation": "https://kimi.com/",
-  "website": "https://kimi.com/",
+  "documentation": "https://www.kimi.com/code/docs/",
+  "website": "https://github.com/MoonshotAI/kimi-code",
+  "repository": "https://github.com/MoonshotAI/kimi-code",
   "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/kimi.webp",
-  "description": "Kimi CLI by MoonshotAI - a CLI AI coding agent with a web terminal via ttyd.",
+  "description": "Kimi Code CLI by MoonshotAI - a CLI AI coding agent with a web terminal via ttyd.",
   "install_methods": [
     {
       "type": "default",
       "script": "ct/kimicli.sh",
       "resources": {
         "cpu": 2,
-        "ram": 2048,
-        "hdd": 8,
+        "ram": 4096,
+        "hdd": 16,
         "os": "Debian",
         "version": "13"
       }
@@ -33,20 +37,16 @@
   },
   "notes": [
     {
-      "text": "Access Kimi CLI in your browser at http://<container-ip>. The first run launches the login/setup wizard.",
+      "text": "Access Kimi Code in your browser at http://<container-ip>. The first run launches the login/setup wizard.",
       "type": "info"
     },
     {
-      "text": "Config and session data is stored in ~/.kimi/.",
+      "text": "Config and session data is stored in ~/.kimi-code/.",
       "type": "info"
     },
     {
       "text": "Browser access uses ttyd, which has no authentication by default. Restrict port 80 with a reverse proxy or firewall before exposing it publicly.",
       "type": "warning"
-    },
-    {
-      "text": "Documentation and configuration guide: https://kimi.com/",
-      "type": "info"
     }
   ]
 }
