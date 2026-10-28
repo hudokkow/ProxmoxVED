@@ -4,14 +4,18 @@
   "categories": [
     20
   ],
-  "date_created": "2026-07-16",
+  "date_created": "2026-10-28",
   "type": "ct",
   "updateable": true,
   "privileged": false,
-  "has_arm": true,
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
   "interface_port": 80,
   "documentation": "https://pi.dev/docs/latest",
   "website": "https://github.com/earendil-works/pi",
+  "repository": "https://github.com/earendil-works/pi",
   "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/pi.webp",
   "description": "pi is a self-extensible AI coding agent harness. The base install is lean; functionality is added via packages (web UI, knowledge base, chat integrations) installed at runtime with 'pi install'. Exposed via ttyd for browser-based terminal access.",
   "install_methods": [

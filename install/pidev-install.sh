@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
+
 # Copyright (c) 2021-2026 community-scripts ORG
 # Author: h.udo (hudokkow)
-\#\ License\:\ MIT\ \|\ https\:\/\/github\.com\/community\-scripts\/DevScripts\/raw\/main\/LICENSE
+# License: MIT | https://github.com/community-scripts/DevScripts/raw/main/LICENSE
 # Source: https://github.com/earendil-works/pi
 
 source /dev/stdin <<<"$FUNCTIONS_FILE_PATH"
@@ -12,11 +13,9 @@ setting_up_container
 network_check
 update_os
 
-TTYD_ARCH=$(arch_resolve x86_64 aarch64)
-fetch_and_deploy_gh_release "ttyd" "tsl0922/ttyd" "singlefile" "latest" "/usr/local/bin" "ttyd.${TTYD_ARCH}"
+fetch_and_deploy_gh_release "ttyd" "tsl0922/ttyd" "singlefile" "latest" "/usr/local/bin" "ttyd.$(arch_resolve "x86_64" "aarch64")"
 
-ARCH=$(arch_resolve x64 arm64)
-fetch_and_deploy_gh_release "pidev" "earendil-works/pi" "prebuild" "latest" "/usr/local/bin" "pi-linux-${ARCH}.tar.gz"
+fetch_and_deploy_gh_release "pidev" "earendil-works/pi" "prebuild" "latest" "/usr/local/bin" "pi-linux-$(arch_resolve "x64" "arm64").tar.gz"
 
 msg_info "Creating Service"
 cat <<EOF >/etc/systemd/system/pi-ttyd.service
