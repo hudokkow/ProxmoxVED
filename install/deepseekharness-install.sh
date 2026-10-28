@@ -2,7 +2,7 @@
 
 # Copyright (c) 2021-2026 community-scripts ORG
 # Author: h.udo (hudokkow)
-\#\ License\:\ MIT\ \|\ https\:\/\/github\.com\/community\-scripts\/DevScripts\/raw\/main\/LICENSE
+# License: MIT | https://github.com/community-scripts/DevScripts/raw/main/LICENSE
 # Source: https://github.com/deepseek-ai/deepseek-harness
 
 source /dev/stdin <<<"$FUNCTIONS_FILE_PATH"
@@ -18,15 +18,13 @@ $STD apt install -y \
   build-essential
 msg_ok "Installed Dependencies"
 
-NODE_VERSION="22" setup_nodejs
+NODE_VERSION="24" setup_nodejs
 
 msg_info "Installing pnpm"
 $STD npm install -g pnpm
-PNPM=$(command -v pnpm)
-ln -sf "$PNPM" /usr/local/bin/pnpm
 msg_ok "Installed pnpm"
 
-GH_INCLUDE_PRERELEASE=1 fetch_and_deploy_gh_release "deepseekharness" "deepseek-ai/deepseek-harness" "tarball"
+fetch_and_deploy_gh_tag "deepseekharness" "deepseek-ai/deepseek-harness" "dsh-v*" "/opt/deepseekharness"
 
 msg_info "Building Application"
 cd /opt/deepseekharness
