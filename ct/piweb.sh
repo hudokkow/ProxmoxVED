@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 _CS_DEFAULT_URL="https://raw.githubusercontent.com/community-scripts/DevScripts/main"
-# Engine comes from community-scripts/core; this repo only ships the scripts.
-# A local core checkout wins (COMMUNITY_SCRIPTS_CORE_DIR, else a sibling ../core),
-# so a fork or branch of core can be tested without editing this file.
 _cs_boot="${COMMUNITY_SCRIPTS_CORE_DIR:-$(dirname "${BASH_SOURCE[0]}")/../../core}/core/build.func"
 source "$_cs_boot" 2>/dev/null || source <(curl -fsSL "${COMMUNITY_SCRIPTS_CORE_URL:-https://raw.githubusercontent.com/community-scripts/core/main}/core/build.func")
 # Copyright (c) 2021-2026 community-scripts ORG
@@ -37,25 +34,16 @@ function update_script() {
 
   if check_for_gh_release "pi-web" "jmfederico/pi-web"; then
     msg_info "Stopping Services"
-    systemctl stop pi-web pi-web-sessiond
+    systemctl stop pi-web-sessiond pi-web
     msg_ok "Stopped Services"
 
-    create_backup /root/.config/pi-web /root/.pi /root/.pi-web
-
-    CLEAN_INSTALL=1 fetch_and_deploy_gh_release "pi-web" "jmfederico/pi-web" "tarball"
+    CLEAN_INSTALL=1 fetch_and_deploy_gh_release "pi-web" "jmfederico/pi-web" "tarball" "latest" "/opt/pi-web"
 
     msg_info "Building Pi Web"
     cd /opt/pi-web
     $STD npm install
     $STD npm run build
     msg_ok "Built Pi Web"
-
-    for d in /root/.pi /root/.pi-web; do
-      [ -f "$d" ] && rm -f "$d"
-      mkdir -p "$d"
-    done
-
-    restore_backup
 
     msg_info "Starting Services"
     systemctl start pi-web-sessiond pi-web

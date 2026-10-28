@@ -2,7 +2,7 @@
 
 # Copyright (c) 2021-2026 community-scripts ORG
 # Author: h.udo (hudokkow)
-\#\ License\:\ MIT\ \|\ https\:\/\/github\.com\/community\-scripts\/DevScripts\/raw\/main\/LICENSE
+# License: MIT | https://github.com/community-scripts/DevScripts/raw/main/LICENSE
 # Source: https://github.com/jmfederico/pi-web
 
 source /dev/stdin <<<"$FUNCTIONS_FILE_PATH"
@@ -22,7 +22,7 @@ msg_ok "Installed Dependencies"
 NODE_VERSION="22" setup_nodejs
 
 msg_info "Installing Pi Web"
-fetch_and_deploy_gh_release "pi-web" "jmfederico/pi-web" "tarball"
+fetch_and_deploy_gh_release "pi-web" "jmfederico/pi-web" "tarball" "latest" "/opt/pi-web"
 
 msg_info "Building Pi Web"
 cd /opt/pi-web
