@@ -34,7 +34,7 @@ CLICKHOUSE_PASSWORD=$(random_password 32)
 cat <<EOF >/etc/redis/redis.conf
 requirepass ${REDIS_PASSWORD}
 EOF
-$STD systemctl restart redis-server
+systemctl restart redis-server
 
 cat <<EOF >/etc/clickhouse-server/users.d/password.xml
 <clickhouse>
@@ -80,7 +80,7 @@ cat <<EOF >/etc/clickhouse-server/users.d/async-insert.xml
   </profiles>
 </clickhouse>
 EOF
-$STD systemctl restart clickhouse-server
+systemctl restart clickhouse-server
 msg_ok "Configured ClickHouse"
 
 msg_info "Creating Environment"
