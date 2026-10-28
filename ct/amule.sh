@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 _CS_DEFAULT_URL="https://raw.githubusercontent.com/community-scripts/DevScripts/main"
-# Engine comes from community-scripts/core; this repo only ships the scripts.
-# A local core checkout wins (COMMUNITY_SCRIPTS_CORE_DIR, else a sibling ../core),
-# so a fork or branch of core can be tested without editing this file.
 _cs_boot="${COMMUNITY_SCRIPTS_CORE_DIR:-$(dirname "${BASH_SOURCE[0]}")/../../core}/core/build.func"
 source "$_cs_boot" 2>/dev/null || source <(curl -fsSL "${COMMUNITY_SCRIPTS_CORE_URL:-https://raw.githubusercontent.com/community-scripts/core/main}/core/build.func")
 # Copyright (c) 2021-2026 community-scripts ORG
@@ -30,7 +27,7 @@ function update_script() {
   check_container_storage
   check_container_resources
 
-  if [[ ! -d /opt/amule ]]; then
+  if [[ ! -f /opt/amule/amuled ]]; then
     msg_error "No ${APP} Installation Found!"
     exit
   fi
@@ -40,31 +37,9 @@ function update_script() {
     systemctl stop amuled
     msg_ok "Stopped Service"
 
-    create_backup /opt/amule/data
+    create_backup /opt/amule_data
 
-    CLEAN_INSTALL=1 fetch_and_deploy_gh_release "amule" "amule-org/amule" "prebuild" "latest" "/opt/amule" "aMule-*-src.tar.gz"
-
-    msg_info "Building aMule"
-    cd /opt/amule
-    rm -rf build
-    mkdir -p build
-    cd build
-    $STD cmake .. \
-      -DCMAKE_BUILD_TYPE=Release \
-      -DCMAKE_INSTALL_PREFIX=/opt/amule \
-      -DWX_GTK=3 \
-      -DENABLE_AMULECMD=ON \
-      -DENABLE_WEBSERVER=ON \
-      -DENABLE_UPNP=ON \
-      -DENABLE_IP2COUNTRY=ON
-    $STD make -j "$(nproc)"
-    $STD make install
-    $STD ldconfig
-    cd /opt/amule
-    rm -rf build
-    msg_ok "Built aMule"
-
-    restore_backup
+    CLEAN_INSTALL=1 fetch_and_deploy_gh_release "amule" "amule-org/amule" "prebuild" "latest" "/opt/amule" "aMule-*-Linux-$(arch_resolve "x64" "arm64")-static.tar.gz"
 
     msg_info "Starting Service"
     systemctl start amuled
