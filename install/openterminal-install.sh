@@ -2,7 +2,7 @@
 
 # Copyright (c) 2021-2026 community-scripts ORG
 # Author: h.udo (hudokkow)
-\#\ License\:\ MIT\ \|\ https\:\/\/github\.com\/community\-scripts\/DevScripts\/raw\/main\/LICENSE
+# License: MIT | https://github.com/community-scripts/DevScripts/raw/main/LICENSE
 # Source: https://github.com/open-webui/open-terminal
 
 source /dev/stdin <<<"$FUNCTIONS_FILE_PATH"
@@ -17,7 +17,6 @@ msg_info "Installing Dependencies"
 $STD apt install -y \
   build-essential \
   cmake \
-  git \
   pandoc \
   texlive-latex-base \
   libpango-1.0-0 \
@@ -41,7 +40,7 @@ uv pip show --python=/opt/openterminal/venv/bin/python open-terminal 2>/dev/null
 msg_ok "Stored Version"
 
 msg_info "Creating API Key"
-API_KEY=$(openssl rand -base64 24 | tr -dc 'A-Za-z0-9' | cut -c1-32)
+API_KEY=$(random_password 32)
 cat <<EOF > /opt/openterminal/.env
 OPEN_TERMINAL_API_KEY=${API_KEY}
 EOF
@@ -90,7 +89,6 @@ jsonlines
 tqdm
 rich
 openpyxl
-weasyprint
 python-docx
 python-pptx
 pypdf

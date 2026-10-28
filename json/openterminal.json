@@ -1,17 +1,23 @@
 {
   "name": "Open Terminal",
   "slug": "openterminal",
-  "categories": [20],
-  "date_created": "2026-07-15",
+  "categories": [
+    20
+  ],
+  "date_created": "2026-10-28",
   "type": "ct",
   "updateable": true,
   "privileged": false,
-  "has_arm": true,
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
   "interface_port": 8000,
   "documentation": "https://docs.openwebui.com/features/open-terminal/",
   "website": "https://github.com/open-webui/open-terminal",
+  "repository": "https://github.com/open-webui/open-terminal",
   "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/open-webui.webp",
-  "description": "A lightweight, self-hosted terminal that gives AI agents and automation tools a dedicated environment to run commands, manage files, and execute code over a simple REST API. Replicates the latest most-complete image: ships Node.js 22, a GCC toolchain, FFmpeg, LaTeX and a data-science Python stack.",
+  "description": "A lightweight, self-hosted terminal that gives AI agents and automation tools a dedicated environment to run commands, manage files, and execute code over a simple REST API. Ships Node.js 22, a GCC toolchain, FFmpeg, LaTeX and a data-science Python stack.",
   "install_methods": [
     {
       "type": "default",

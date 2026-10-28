@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 _CS_DEFAULT_URL="https://raw.githubusercontent.com/community-scripts/DevScripts/main"
-# Engine comes from community-scripts/core; this repo only ships the scripts.
-# A local core checkout wins (COMMUNITY_SCRIPTS_CORE_DIR, else a sibling ../core),
-# so a fork or branch of core can be tested without editing this file.
 _cs_boot="${COMMUNITY_SCRIPTS_CORE_DIR:-$(dirname "${BASH_SOURCE[0]}")/../../core}/core/build.func"
 source "$_cs_boot" 2>/dev/null || source <(curl -fsSL "${COMMUNITY_SCRIPTS_CORE_URL:-https://raw.githubusercontent.com/community-scripts/core/main}/core/build.func")
 # Copyright (c) 2021-2026 community-scripts ORG
@@ -30,7 +27,7 @@ function update_script() {
   check_container_storage
   check_container_resources
 
-  if [[ ! -d /opt/openterminal ]]; then
+  if [[ ! -f /opt/openterminal/venv/bin/open-terminal ]]; then
     msg_error "No ${APP} Installation Found!"
     exit
   fi
@@ -40,16 +37,13 @@ function update_script() {
     systemctl stop openterminal
     msg_ok "Stopped Service"
 
-    create_backup /opt/openterminal/.env
-
     msg_info "Updating Open Terminal"
     $STD uv pip install --python=/opt/openterminal/venv/bin/python --upgrade open-terminal
+    msg_ok "Updated Open Terminal"
+
     msg_info "Storing Version"
     uv pip show --python=/opt/openterminal/venv/bin/python open-terminal 2>/dev/null | grep '^Version:' | cut -d: -f2- | tr -d ' ' > ~/.openterminal
     msg_ok "Stored Version"
-    msg_ok "Updated Open Terminal"
-
-    restore_backup
 
     msg_info "Starting Service"
     systemctl start openterminal
