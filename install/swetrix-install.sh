@@ -45,7 +45,6 @@ cat <<EOF >/etc/clickhouse-server/users.d/password.xml
   </users>
 </clickhouse>
 EOF
-$STD systemctl restart clickhouse-server
 msg_ok "Configured Credentials"
 
 msg_info "Configuring ClickHouse"
