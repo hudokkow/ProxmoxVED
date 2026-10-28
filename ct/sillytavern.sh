@@ -1,16 +1,13 @@
 #!/usr/bin/env bash
 _CS_DEFAULT_URL="https://raw.githubusercontent.com/community-scripts/DevScripts/main"
-# Engine comes from community-scripts/core; this repo only ships the scripts.
-# A local core checkout wins (COMMUNITY_SCRIPTS_CORE_DIR, else a sibling ../core),
-# so a fork or branch of core can be tested without editing this file.
 _cs_boot="${COMMUNITY_SCRIPTS_CORE_DIR:-$(dirname "${BASH_SOURCE[0]}")/../../core}/core/build.func"
 source "$_cs_boot" 2>/dev/null || source <(curl -fsSL "${COMMUNITY_SCRIPTS_CORE_URL:-https://raw.githubusercontent.com/community-scripts/core/main}/core/build.func")
 # Copyright (c) 2021-2026 community-scripts ORG
 # Author: h.udo (hudokkow)
 # License: MIT | https://github.com/community-scripts/DevScripts/raw/main/LICENSE
-# Source: https://sillytavern.app/
+# Source: https://github.com/SillyTavern/SillyTavern
 
-APP="sillytavern"
+APP="SillyTavern"
 var_tags="${var_tags:-ai;llm;chat;frontend}"
 var_cpu="${var_cpu:-2}"
 var_ram="${var_ram:-2048}"
@@ -35,16 +32,12 @@ function update_script() {
     exit
   fi
 
-  if check_for_gh_release "sillytavern" "SillyTavern/SillyTavern"; then
+  if check_for_gh_branch "sillytavern" "SillyTavern/SillyTavern" "release"; then
     msg_info "Stopping Service"
     systemctl stop sillytavern
     msg_ok "Stopped Service"
 
-    create_backup /opt/sillytavern/data /opt/sillytavern/config.yaml
-
-    CLEAN_INSTALL=1 fetch_and_deploy_gh_release "sillytavern" "SillyTavern/SillyTavern" "tarball" "latest" "/opt/sillytavern"
-
-    restore_backup
+    CLEAN_INSTALL=1 CLEAN_INSTALL_KEEP="data config.yaml" fetch_and_deploy_gh_branch "sillytavern" "SillyTavern/SillyTavern" "release" "/opt/sillytavern"
 
     msg_info "Installing Dependencies"
     cd /opt/sillytavern

@@ -2,8 +2,8 @@
 
 # Copyright (c) 2021-2026 community-scripts ORG
 # Author: h.udo (hudokkow)
-\#\ License\:\ MIT\ \|\ https\:\/\/github\.com\/community\-scripts\/DevScripts\/raw\/main\/LICENSE
-# Source: https://sillytavern.app/
+# License: MIT | https://github.com/community-scripts/DevScripts/raw/main/LICENSE
+# Source: https://github.com/SillyTavern/SillyTavern
 
 source /dev/stdin <<<"$FUNCTIONS_FILE_PATH"
 color
@@ -19,7 +19,7 @@ msg_ok "Installed Dependencies"
 
 NODE_VERSION="22" setup_nodejs
 
-fetch_and_deploy_gh_release "sillytavern" "SillyTavern/SillyTavern" "tarball"
+fetch_and_deploy_gh_branch "sillytavern" "SillyTavern/SillyTavern" "release" "/opt/sillytavern"
 
 msg_info "Creating Data Directory"
 mkdir -p /opt/sillytavern/data
