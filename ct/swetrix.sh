@@ -49,7 +49,7 @@ function update_script() {
     else
       REDIS_PASSWORD=$(random_password 32)
       echo "requirepass ${REDIS_PASSWORD}" >>/etc/redis/redis.conf
-      systemctl restart redis-server
+      $STD systemctl restart redis-server
     fi
 
     if [[ -f /etc/clickhouse-server/users.d/password.xml ]]; then
@@ -65,7 +65,7 @@ function update_script() {
   </users>
 </clickhouse>
 EOF
-      systemctl restart clickhouse-server
+      $STD systemctl restart clickhouse-server
     fi
 
     sed -i "s|^REDIS_PASSWORD=.*|REDIS_PASSWORD=${REDIS_PASSWORD}|" /opt/swetrix/backend/.env
@@ -100,7 +100,7 @@ EOF
   </profiles>
 </clickhouse>
 EOF
-    systemctl restart clickhouse-server
+    $STD systemctl restart clickhouse-server
     msg_ok "Configured ClickHouse"
 
     msg_info "Starting Service"
