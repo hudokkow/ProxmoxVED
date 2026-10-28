@@ -80,6 +80,26 @@ cat <<EOF >/etc/clickhouse-server/users.d/async-insert.xml
   </profiles>
 </clickhouse>
 EOF
+cat <<EOF >/etc/clickhouse-server/config.d/reduce-logs.xml
+<clickhouse>
+  <logger>
+    <level>warning</level>
+    <console>true</console>
+  </logger>
+  <query_thread_log remove="remove"/>
+  <query_log remove="remove"/>
+  <text_log remove="remove"/>
+  <trace_log remove="remove"/>
+  <metric_log remove="remove"/>
+  <asynchronous_metric_log remove="remove"/>
+  <session_log remove="remove"/>
+  <part_log remove="remove"/>
+  <processors_profile_log remove="remove"/>
+  <asynchronous_insert_log remove="remove"/>
+  <query_metric_log remove="remove"/>
+  <opentelemetry_span_log remove="remove"/>
+</clickhouse>
+EOF
 systemctl restart clickhouse-server
 msg_ok "Configured ClickHouse"
 
