@@ -4,14 +4,18 @@
   "categories": [
     4
   ],
-  "date_created": "2026-07-16",
+  "date_created": "2026-10-28",
   "type": "ct",
   "updateable": true,
   "privileged": false,
-  "has_arm": true,
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
   "interface_port": null,
   "documentation": "https://crazymax.dev/geoip-updater/",
   "website": "https://github.com/crazy-max/geoip-updater",
+  "repository": "https://github.com/crazy-max/geoip-updater",
   "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/geoip-updater.webp",
   "description": "geoip-updater keeps MaxMind GeoIP2/GeoLite2 databases up to date, downloading the configured editions on a cron schedule as a single host-level service.",
   "install_methods": [
@@ -34,11 +38,11 @@
   },
   "notes": [
     {
-      "text": "A MaxMind License Key is required (free GeoLite2 account). Add it to the config file at /etc/geoip-updater/geoip-updater.env.",
+      "text": "A MaxMind License Key is required (free GeoLite2 account). Add it to /etc/geoip-updater/geoip-updater.env.",
       "type": "warning"
     },
     {
-      "text": "Downloaded databases are stored in /usr/local/bin/geoip-updater/data. Point other services (firewalls, proxies, analytics) at that path.",
+      "text": "Downloaded databases are stored in /var/lib/geoip-updater/data. Point other services at that path.",
       "type": "info"
     }
   ]
