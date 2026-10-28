@@ -4,20 +4,25 @@
   "categories": [
     20
   ],
-  "date_created": "2026-07-26",
+  "date_created": "2026-10-28",
   "type": "ct",
   "updateable": true,
   "privileged": false,
-  "has_arm": true,
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
   "interface_port": 80,
   "documentation": "https://docs.opencode.ai/",
   "website": "https://opencode.ai",
-  "logo": "https://raw.githubusercontent.com/anomalyco/opencode/dev/packages/console/app/src/asset/logo-ornate-light.svg",
+  "repository": "https://github.com/anomalyco/opencode",
+  "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/opencode.webp",
   "description": "The open source AI coding agent with a web UI server. Free models included or connect any model from any provider, including Claude, GPT, Gemini and more.",
   "install_methods": [
     {
       "type": "default",
       "script": "ct/opencode.sh",
+      "config_path": "/etc/opencode/.env",
       "resources": {
         "cpu": 2,
         "ram": 2048,
@@ -28,12 +33,12 @@
     }
   ],
   "default_credentials": {
-    "username": null,
+    "username": "opencode",
     "password": null
   },
   "notes": [
     {
-      "text": "Web UI user is 'opencode' and password is auto-generated and stored in /opt/opencode/.env. View it 'cat /opt/opencode/.env'.",
+      "text": "Web UI user is 'opencode' and password is auto-generated and stored in /etc/opencode/.env.",
       "type": "info"
     },
     {

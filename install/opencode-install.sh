@@ -2,7 +2,7 @@
 
 # Copyright (c) 2021-2026 community-scripts ORG
 # Author: h.udo (hudokkow)
-\#\ License\:\ MIT\ \|\ https\:\/\/github\.com\/community\-scripts\/DevScripts\/raw\/main\/LICENSE
+# License: MIT | https://github.com/community-scripts/DevScripts/raw/main/LICENSE
 # Source: https://github.com/anomalyco/opencode
 
 source /dev/stdin <<<"$FUNCTIONS_FILE_PATH"
@@ -13,16 +13,14 @@ setting_up_container
 network_check
 update_os
 
-ARCH=$(arch_resolve x64 arm64)
-fetch_and_deploy_gh_release "opencode" "anomalyco/opencode" "prebuild" "latest" "/opt/opencode" "opencode-linux-${ARCH}.tar.gz"
+fetch_and_deploy_gh_release "opencode" "anomalyco/opencode" "prebuild" "latest" "/usr/local/bin" "opencode-linux-$(arch_resolve "x64" "arm64").tar.gz"
 
 OPENCODE_SERVER_PASSWORD=$(openssl rand -hex 16)
 
 msg_info "Creating Configuration"
-mkdir -p /opt/opencode/.config
-cat <<EOF >/opt/opencode/.env
+mkdir -p /etc/opencode
+cat <<EOF >/etc/opencode/.env
 OPENCODE_SERVER_PASSWORD=${OPENCODE_SERVER_PASSWORD}
-OPENCODE_CONFIG_DIR=/opt/opencode/.config
 EOF
 msg_ok "Created Configuration"
 
@@ -35,9 +33,8 @@ After=network.target
 [Service]
 Type=simple
 User=root
-WorkingDirectory=/opt/opencode
-EnvironmentFile=/opt/opencode/.env
-ExecStart=/opt/opencode/opencode serve --port 80 --hostname 0.0.0.0
+EnvironmentFile=/etc/opencode/.env
+ExecStart=/usr/local/bin/opencode serve --port 80 --hostname 0.0.0.0
 Restart=on-failure
 RestartSec=5
 
