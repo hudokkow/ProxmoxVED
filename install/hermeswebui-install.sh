@@ -2,8 +2,8 @@
 
 # Copyright (c) 2021-2026 community-scripts ORG
 # Author: h.udo (hudokkow)
-\#\ License\:\ MIT\ \|\ https\:\/\/github\.com\/community\-scripts\/DevScripts\/raw\/main\/LICENSE
-# Source: https://github.com/NousResearch/hermes-agent
+# License: MIT | https://github.com/community-scripts/DevScripts/raw/main/LICENSE
+# Source: https://github.com/nesquena/hermes-webui
 
 source /dev/stdin <<<"$FUNCTIONS_FILE_PATH"
 color
@@ -21,8 +21,7 @@ $STD apt install -y \
 msg_ok "Installed Dependencies"
 
 NODE_VERSION="22" setup_nodejs
-
-UV_PYTHON="3.11" setup_uv
+PYTHON_VERSION="3.11" setup_uv
 
 msg_info "Installing Hermes Agent"
 $STD uv venv /opt/hermesagent --python 3.11

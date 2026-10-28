@@ -1,14 +1,11 @@
 #!/usr/bin/env bash
 _CS_DEFAULT_URL="https://raw.githubusercontent.com/community-scripts/DevScripts/main"
-# Engine comes from community-scripts/core; this repo only ships the scripts.
-# A local core checkout wins (COMMUNITY_SCRIPTS_CORE_DIR, else a sibling ../core),
-# so a fork or branch of core can be tested without editing this file.
 _cs_boot="${COMMUNITY_SCRIPTS_CORE_DIR:-$(dirname "${BASH_SOURCE[0]}")/../../core}/core/build.func"
 source "$_cs_boot" 2>/dev/null || source <(curl -fsSL "${COMMUNITY_SCRIPTS_CORE_URL:-https://raw.githubusercontent.com/community-scripts/core/main}/core/build.func")
 # Copyright (c) 2021-2026 community-scripts ORG
 # Author: h.udo (hudokkow)
 # License: MIT | https://github.com/community-scripts/DevScripts/raw/main/LICENSE
-# Source: https://github.com/NousResearch/hermes-agent
+# Source: https://github.com/nesquena/hermes-webui
 
 APP="HermesWebUI"
 var_tags="${var_tags:-ai;coding-agent;webui;terminal}"
@@ -40,10 +37,6 @@ function update_script() {
     systemctl stop hermeswebui
     msg_ok "Stopped Service"
 
-    msg_info "Backing up Data"
-    create_backup /root/.hermes
-    msg_ok "Backed up Data"
-
     msg_info "Updating Hermes Agent"
     $STD uv pip install --python /opt/hermesagent --upgrade hermes-agent
     msg_ok "Updated Hermes Agent"
@@ -53,10 +46,6 @@ function update_script() {
     msg_info "Updating WebUI Dependencies"
     $STD uv pip install --python /opt/hermesagent -r /opt/hermeswebui/requirements.txt
     msg_ok "Updated WebUI Dependencies"
-
-    msg_info "Restoring Data"
-    restore_backup
-    msg_ok "Restored Data"
 
     msg_info "Starting Service"
     systemctl start hermeswebui
