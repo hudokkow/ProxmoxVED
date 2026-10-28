@@ -1,15 +1,21 @@
 {
   "name": "HermesAgent",
   "slug": "hermesagent",
-  "categories": [20],
-  "date_created": "2026-07-28",
+  "categories": [
+    20
+  ],
+  "date_created": "2026-10-28",
   "type": "ct",
   "updateable": true,
   "privileged": false,
-  "has_arm": true,
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
   "interface_port": 80,
   "documentation": "https://hermes-agent.nousresearch.com/docs/getting-started/installation",
   "website": "https://github.com/NousResearch/hermes-agent",
+  "repository": "https://github.com/NousResearch/hermes-agent",
   "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/hermes.webp",
   "description": "Hermes Agent by NousResearch - a self-extensible AI coding agent with a web terminal via ttyd.",
   "install_methods": [
@@ -41,10 +47,6 @@
     {
       "text": "Browser access uses ttyd, which has no authentication by default. Restrict port 80 with a reverse proxy or firewall before exposing it publicly.",
       "type": "warning"
-    },
-    {
-      "text": "Documentation and configuration guide: https://hermes-agent.nousresearch.com/docs/getting-started/installation",
-      "type": "info"
     }
   ]
 }

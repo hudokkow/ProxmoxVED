@@ -2,7 +2,7 @@
 
 # Copyright (c) 2021-2026 community-scripts ORG
 # Author: h.udo (hudokkow)
-\#\ License\:\ MIT\ \|\ https\:\/\/github\.com\/community\-scripts\/DevScripts\/raw\/main\/LICENSE
+# License: MIT | https://github.com/community-scripts/DevScripts/raw/main/LICENSE
 # Source: https://github.com/NousResearch/hermes-agent
 
 source /dev/stdin <<<"$FUNCTIONS_FILE_PATH"
@@ -21,11 +21,9 @@ $STD apt install -y \
 msg_ok "Installed Dependencies"
 
 NODE_VERSION="22" setup_nodejs
+PYTHON_VERSION="3.11" setup_uv
 
-UV_PYTHON="3.11" setup_uv
-
-TTYD_ARCH=$(arch_resolve x86_64 aarch64)
-fetch_and_deploy_gh_release "ttyd" "tsl0922/ttyd" "singlefile" "latest" "/usr/local/bin" "ttyd.${TTYD_ARCH}"
+fetch_and_deploy_gh_release "ttyd" "tsl0922/ttyd" "singlefile" "latest" "/usr/local/bin" "ttyd.$(arch_resolve "x86_64" "aarch64")"
 
 msg_info "Installing Hermes Agent"
 $STD uv venv /opt/hermesagent --python 3.11
