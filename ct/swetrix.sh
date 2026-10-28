@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 _CS_DEFAULT_URL="https://raw.githubusercontent.com/community-scripts/DevScripts/main"
-# Engine comes from community-scripts/core; this repo only ships the scripts.
-# A local core checkout wins (COMMUNITY_SCRIPTS_CORE_DIR, else a sibling ../core),
-# so a fork or branch of core can be tested without editing this file.
 _cs_boot="${COMMUNITY_SCRIPTS_CORE_DIR:-$(dirname "${BASH_SOURCE[0]}")/../../core}/core/build.func"
 source "$_cs_boot" 2>/dev/null || source <(curl -fsSL "${COMMUNITY_SCRIPTS_CORE_URL:-https://raw.githubusercontent.com/community-scripts/core/main}/core/build.func")
 # Copyright (c) 2021-2026 community-scripts ORG
@@ -35,14 +32,14 @@ function update_script() {
     exit
   fi
 
-  if check_for_gh_release "swetrix" "Swetrix/swetrix" "" "" "v"; then
+  if check_for_gh_release "swetrix" "Swetrix/swetrix"; then
     msg_info "Stopping Service"
     systemctl stop swetrix-web swetrix-api
     msg_ok "Stopped Service"
 
     create_backup /opt/swetrix/backend/.env /opt/swetrix/web/.env /opt/swetrix/backend/ip-geolocation-db.mmdb
 
-    CLEAN_INSTALL=1 fetch_and_deploy_gh_release "swetrix" "Swetrix/swetrix" "tarball" "latest" "/opt/swetrix" "" "v"
+    CLEAN_INSTALL=1 fetch_and_deploy_gh_release "swetrix" "Swetrix/swetrix" "tarball" "latest" "/opt/swetrix"
 
     restore_backup
 
@@ -50,17 +47,15 @@ function update_script() {
     if grep -q '^requirepass' /etc/redis/redis.conf; then
       REDIS_PASSWORD=$(grep '^requirepass' /etc/redis/redis.conf | awk '{print $2}')
     else
-      REDIS_PASSWORD=$(openssl rand -base64 48 | tr -dc 'a-zA-Z0-9' | cut -c1-32)
-      cat <<EOF >>/etc/redis/redis.conf
-requirepass ${REDIS_PASSWORD}
-EOF
+      REDIS_PASSWORD=$(random_password 32)
+      echo "requirepass ${REDIS_PASSWORD}" >>/etc/redis/redis.conf
       systemctl restart redis-server
     fi
 
     if [[ -f /etc/clickhouse-server/users.d/password.xml ]]; then
       CLICKHOUSE_PASSWORD=$(sed -n 's:.*<password>\(.*\)</password>.*:\1:p' /etc/clickhouse-server/users.d/password.xml)
     else
-      CLICKHOUSE_PASSWORD=$(openssl rand -base64 48 | tr -dc 'a-zA-Z0-9' | cut -c1-32)
+      CLICKHOUSE_PASSWORD=$(random_password 32)
       cat <<EOF >/etc/clickhouse-server/users.d/password.xml
 <clickhouse>
   <users>
@@ -105,7 +100,7 @@ EOF
   </profiles>
 </clickhouse>
 EOF
-    $STD systemctl restart clickhouse-server
+    systemctl restart clickhouse-server
     msg_ok "Configured ClickHouse"
 
     msg_info "Starting Service"

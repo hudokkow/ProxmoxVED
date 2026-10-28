@@ -16,23 +16,26 @@ update_os
 msg_info "Installing Dependencies"
 $STD apt install -y \
   build-essential \
-  ffmpeg \
   nginx \
-  python3 \
   redis-server
 msg_ok "Installed Dependencies"
 
-NODE_VERSION="24" setup_nodejs
-
+NODE_VERSION="22" setup_nodejs
+setup_ffmpeg
 setup_clickhouse
 
+fetch_and_deploy_gh_release "swetrix" "Swetrix/swetrix" "tarball" "latest" "/opt/swetrix"
+msg_ok "Installed Swetrix"
+
 msg_info "Configuring Credentials"
-REDIS_PASSWORD=$(openssl rand -base64 48 | tr -dc 'a-zA-Z0-9' | cut -c1-32)
-CLICKHOUSE_PASSWORD=$(openssl rand -base64 48 | tr -dc 'a-zA-Z0-9' | cut -c1-32)
-cat <<EOF >>/etc/redis/redis.conf
+REDIS_PASSWORD=$(random_password 32)
+CLICKHOUSE_PASSWORD=$(random_password 32)
+
+cat <<EOF >/etc/redis/redis.conf
 requirepass ${REDIS_PASSWORD}
 EOF
 $STD systemctl restart redis-server
+
 cat <<EOF >/etc/clickhouse-server/users.d/password.xml
 <clickhouse>
   <users>
@@ -55,26 +58,6 @@ cat <<EOF >/etc/clickhouse-server/config.d/preserve-ram-config.xml
 <clickhouse>
   <mark_cache_size>536870912</mark_cache_size>
   <concurrent_threads_soft_limit_num>1</concurrent_threads_soft_limit_num>
-</clickhouse>
-EOF
-cat <<EOF >/etc/clickhouse-server/config.d/reduce-logs.xml
-<clickhouse>
-  <logger>
-    <level>warning</level>
-    <console>true</console>
-  </logger>
-  <query_thread_log remove="remove"/>
-  <query_log remove="remove"/>
-  <text_log remove="remove"/>
-  <trace_log remove="remove"/>
-  <metric_log remove="remove"/>
-  <asynchronous_metric_log remove="remove"/>
-  <session_log remove="remove"/>
-  <part_log remove="remove"/>
-  <processors_profile_log remove="remove"/>
-  <asynchronous_insert_log remove="remove"/>
-  <query_metric_log remove="remove"/>
-  <opentelemetry_span_log remove="remove"/>
 </clickhouse>
 EOF
 cat <<EOF >/etc/clickhouse-server/users.d/preserve-ram-user.xml
@@ -101,10 +84,8 @@ EOF
 $STD systemctl restart clickhouse-server
 msg_ok "Configured ClickHouse"
 
-fetch_and_deploy_gh_release "swetrix" "Swetrix/swetrix" "tarball" "latest" "/opt/swetrix" "" "v"
-
 msg_info "Creating Environment"
-SECRET_KEY_BASE=$(openssl rand -base64 48)
+SECRET_KEY_BASE=$(random_password 48)
 cat <<EOF >/opt/swetrix/backend/.env
 NODE_ENV=production
 IS_PRIMARY_NODE=true
@@ -206,9 +187,7 @@ server {
   gzip_types text/plain text/css text/xml application/json application/javascript application/rss+xml application/atom+xml image/svg+xml;
 }
 EOF
-ln -sf /etc/nginx/sites-available/swetrix /etc/nginx/sites-enabled/swetrix
-rm -f /etc/nginx/sites-enabled/default
-systemctl reload nginx
+nginx_enable_site "swetrix"
 msg_ok "Configured Nginx"
 
 msg_info "Creating Services"

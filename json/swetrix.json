@@ -4,16 +4,20 @@
   "categories": [
     9
   ],
-  "date_created": "2026-07-31",
+  "date_created": "2026-10-28",
   "type": "ct",
   "updateable": true,
   "privileged": false,
-  "has_arm": true,
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
   "interface_port": 80,
   "documentation": "https://swetrix.com/docs/selfhosting/how-to",
   "website": "https://swetrix.com",
+  "repository": "https://github.com/Swetrix/swetrix",
   "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/swetrix.webp",
-  "description": "Swetrix is a privacy-first, cookie-less web analytics platform with built-in error tracking and performance monitoring. A Google Analytics alternative that you can self-host, with the dashboard served by nginx on port 80.",
+  "description": "Swetrix is a privacy-first, cookie-less web analytics platform with built-in error tracking and performance monitoring. Self-hosted via nginx reverse proxy with Node.js API and React frontend, backed by ClickHouse and Redis.",
   "install_methods": [
     {
       "type": "default",
@@ -42,12 +46,8 @@
       "type": "info"
     },
     {
-      "text": "Analytics data is stored in ClickHouse at /var/lib/clickhouse. Make sure to back it up before major updates, or use the Statistics API to export your data.",
+      "text": "Analytics data is stored in ClickHouse. Back up /var/lib/clickhouse before major updates.",
       "type": "warning"
-    },
-    {
-      "text": "If you put Swetrix behind a reverse proxy, update BASE_URL in /opt/swetrix/backend/.env and /opt/swetrix/web/.env to your public URL and restart the services.",
-      "type": "info"
     }
   ]
 }
