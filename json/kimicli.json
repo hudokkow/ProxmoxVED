@@ -1,0 +1,52 @@
+{
+  "name": "Kimi Code",
+  "slug": "kimicli",
+  "categories": [
+    20
+  ],
+  "date_created": "2026-10-28",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "interface_port": 80,
+  "documentation": "https://www.kimi.com/code/docs/",
+  "website": "https://github.com/MoonshotAI/kimi-code",
+  "repository": "https://github.com/MoonshotAI/kimi-code",
+  "logo": "https://cdn.jsdelivr.net/gh/MoonshotAI/kimi-code@main/apps/kimi-code/dist-web/favicon.ico",
+  "description": "Kimi Code CLI by MoonshotAI - a CLI AI coding agent with a web terminal via ttyd.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/kimicli.sh",
+      "resources": {
+        "cpu": 2,
+        "ram": 4096,
+        "hdd": 16,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "Open http://<container-ip> in a browser; the first run asks you to log in to Kimi.",
+      "type": "info"
+    },
+    {
+      "text": "Config and session data is stored in ~/.kimi-code/.",
+      "type": "info"
+    },
+    {
+      "text": "Browser access uses ttyd, which has no authentication by default. Restrict port 80 with a reverse proxy or firewall before exposing it publicly.",
+      "type": "warning"
+    }
+  ]
+}
