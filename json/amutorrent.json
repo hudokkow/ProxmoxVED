@@ -1,0 +1,49 @@
+{
+  "name": "aMuTorrent",
+  "slug": "amutorrent",
+  "categories": [
+    11
+  ],
+  "date_created": "2026-10-28",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "interface_port": 80,
+  "documentation": "https://github.com/got3nks/amutorrent/blob/main/docs/CONFIGURATION.md",
+  "website": "https://github.com/got3nks/amutorrent",
+  "repository": "https://github.com/got3nks/amutorrent",
+  "logo": "https://raw.githubusercontent.com/got3nks/amutorrent/main/static/logo-amutorrent.png",
+  "description": "A unified download manager for aMule, rTorrent, qBittorrent, Deluge and Transmission: manage ED2K and BitTorrent downloads from a single modern web interface.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/amutorrent.sh",
+      "config_path": "/opt/amutorrent/.env",
+      "resources": {
+        "cpu": 2,
+        "ram": 2048,
+        "hdd": 8,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "Follow the setup wizard on first login, then add your download clients (aMule, rTorrent, qBittorrent, Deluge, Transmission).",
+      "type": "info"
+    },
+    {
+      "text": "aMule needs its EC interface reachable on port 4712 and rTorrent an XML-RPC endpoint before clients can connect.",
+      "type": "info"
+    }
+  ]
+}
