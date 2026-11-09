@@ -1,0 +1,45 @@
+{
+  "name": "OpenCode",
+  "slug": "opencode",
+  "categories": [
+    20
+  ],
+  "date_created": "2026-10-28",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "interface_port": 80,
+  "documentation": "https://opencode.ai/docs",
+  "website": "https://opencode.ai",
+  "repository": "https://github.com/anomalyco/opencode",
+  "logo": "https://opencode.ai/favicon.svg",
+  "description": "The open source AI coding agent with a web UI server. Free models included or connect any model from any provider, including Claude, GPT, Gemini and more.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/opencode.sh",
+      "config_path": "/etc/opencode/.env",
+      "resources": {
+        "cpu": 2,
+        "ram": 2048,
+        "hdd": 8,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": "opencode",
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "Log in as 'opencode' with the password stored in /etc/opencode/.env (OPENCODE_SERVER_PASSWORD).",
+      "type": "info"
+    }
+  ]
+}
