@@ -1,0 +1,48 @@
+{
+  "name": "HermesWebUI",
+  "slug": "hermeswebui",
+  "categories": [
+    20
+  ],
+  "date_created": "2026-10-28",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "interface_port": 80,
+  "documentation": "https://github.com/nesquena/hermes-webui",
+  "website": "https://github.com/nesquena/hermes-webui",
+  "repository": "https://github.com/nesquena/hermes-webui",
+  "logo": "https://cdn.jsdelivr.net/gh/nesquena/hermes-webui@master/static/favicon.svg",
+  "description": "Hermes Agent by NousResearch with the community Hermes WebUI - a self-extensible AI coding agent accessible from a browser.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/hermeswebui.sh",
+      "resources": {
+        "cpu": 2,
+        "ram": 4096,
+        "hdd": 8,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "Log in with the web UI password stored in /opt/hermeswebui/.env.",
+      "type": "info"
+    },
+    {
+      "text": "Config, sessions and skills are stored in ~/.hermes/; they are shared with the Hermes agent.",
+      "type": "info"
+    }
+  ]
+}
