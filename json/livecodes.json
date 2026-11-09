@@ -1,0 +1,48 @@
+{
+  "name": "LiveCodes",
+  "slug": "livecodes",
+  "categories": [
+    20
+  ],
+  "date_created": "2026-10-28",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "interface_port": 80,
+  "documentation": "https://livecodes.io/docs/features/self-hosting",
+  "website": "https://livecodes.io/",
+  "repository": "https://github.com/live-codes/livecodes",
+  "logo": "https://cdn.jsdelivr.net/gh/live-codes/livecodes@main/docs/static/img/livecodes-logo.svg",
+  "description": "A feature-rich, open-source, client-side code playground that runs 90+ languages and frameworks directly in the browser. Self-hosting serves the prebuilt static app via nginx with no backend required.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/livecodes.sh",
+      "resources": {
+        "cpu": 1,
+        "ram": 1024,
+        "hdd": 8,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "LiveCodes is fully client-side; the container only serves the static build with nginx. Optional server-side features require the project's Docker setup and are out of scope for this script.",
+      "type": "info"
+    },
+    {
+      "text": "Access runs on plain HTTP (port 80). Put it behind a reverse proxy with TLS for public exposure.",
+      "type": "warning"
+    }
+  ]
+}
