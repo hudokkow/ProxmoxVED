@@ -1,0 +1,53 @@
+{
+  "name": "Swetrix",
+  "slug": "swetrix",
+  "categories": [
+    9
+  ],
+  "date_created": "2026-10-28",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "interface_port": 80,
+  "documentation": "https://swetrix.com/docs/selfhosting/how-to",
+  "website": "https://swetrix.com",
+  "repository": "https://github.com/Swetrix/swetrix",
+  "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/swetrix.webp",
+  "description": "Swetrix is a privacy-first, cookie-less web analytics platform with built-in error tracking and performance monitoring. Self-hosted via nginx reverse proxy with Node.js API and React frontend, backed by ClickHouse and Redis.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/swetrix.sh",
+      "config_path": "/opt/swetrix/backend/.env",
+      "resources": {
+        "cpu": 2,
+        "ram": 4096,
+        "hdd": 16,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "The API also listens on 0.0.0.0:5005 and is reachable without nginx; firewall that port if the container is exposed.",
+      "type": "warning"
+    },
+    {
+      "text": "Registration is disabled by default (DISABLE_REGISTRATION=true in /opt/swetrix/backend/.env). Set it to false to allow additional accounts.",
+      "type": "info"
+    },
+    {
+      "text": "Analytics data is stored in ClickHouse (/var/lib/clickhouse) and Redis; back them up before major updates.",
+      "type": "info"
+    }
+  ]
+}
