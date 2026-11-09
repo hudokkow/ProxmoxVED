@@ -1,0 +1,48 @@
+{
+  "name": "Oh-My-Pi",
+  "slug": "ohmypi",
+  "categories": [
+    20
+  ],
+  "date_created": "2026-10-28",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "interface_port": 80,
+  "documentation": "https://omp.sh/docs",
+  "website": "https://omp.sh",
+  "repository": "https://github.com/can1357/oh-my-pi",
+  "logo": "https://cdn.jsdelivr.net/gh/can1357/oh-my-pi@master/assets/icon.svg",
+  "description": "Oh-My-Pi (omp) is a terminal-based AI coding agent with hash-anchored edits, LSP integration, built-in tools, subagents, and support for 40+ model providers. A batteries-included fork of Pi by Mario Zechner, exposed via ttyd for browser-based terminal access.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/ohmypi.sh",
+      "resources": {
+        "cpu": 2,
+        "ram": 2048,
+        "hdd": 8,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "Open http://<container-ip> in a browser; the first run launches the setup wizard.",
+      "type": "info"
+    },
+    {
+      "text": "Browser access uses ttyd, which has no authentication by default. Restrict port 80 with a reverse proxy or firewall before exposing it publicly.",
+      "type": "warning"
+    }
+  ]
+}
