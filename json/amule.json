@@ -1,0 +1,53 @@
+{
+  "name": "aMule",
+  "slug": "amule",
+  "categories": [
+    11
+  ],
+  "date_created": "2026-10-28",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "interface_port": 80,
+  "documentation": "https://amule-org.github.io/docs",
+  "website": "https://amule-org.github.io/",
+  "repository": "https://github.com/amule-org/amule",
+  "logo": "https://cdn.jsdelivr.net/gh/amule-org/amule@master/src/icons/amule.svg",
+  "description": "aMule is a free, open-source eD2k and Kad peer-to-peer file-sharing client. This install runs the headless amuled daemon with its bundled amuleapi web interface.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/amule.sh",
+      "config_path": "/opt/amule_data/.env",
+      "resources": {
+        "cpu": 2,
+        "ram": 1024,
+        "hdd": 8,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "Log in to the web UI with the admin password stored in /opt/amule_data/.env.",
+      "type": "info"
+    },
+    {
+      "text": "Forward TCP 4662 and UDP 4672 on your router for eD2k and Kad connectivity.",
+      "type": "info"
+    },
+    {
+      "text": "The web UI serves on port 80; 4712 is loopback-only and used by amulecmd and amulegui.",
+      "type": "info"
+    }
+  ]
+}
