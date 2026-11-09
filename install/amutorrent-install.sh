@@ -1,0 +1,70 @@
+source /dev/stdin <<<"$FUNCTIONS_FILE_PATH"
+color
+verb_ip6
+catch_errors
+setting_up_container
+network_check
+update_os
+
+msg_info "Installing Dependencies"
+$STD apt install -y \
+  build-essential
+msg_ok "Installed Dependencies"
+
+NODE_VERSION="22" setup_nodejs
+PYTHON_VERSION="3.13" setup_uv
+
+fetch_and_deploy_gh_release "amutorrent" "got3nks/amutorrent" "tarball" "latest" "/opt/amutorrent"
+
+msg_info "Building Frontend"
+cd /opt/amutorrent
+$STD npm install
+$STD npm run build
+msg_ok "Built Frontend"
+
+msg_info "Installing Server Dependencies"
+cd /opt/amutorrent/server
+$STD npm ci --omit=dev
+msg_ok "Installed Server Dependencies"
+
+msg_info "Installing Apprise (push notifications)"
+UV_TOOL_BIN_DIR="/usr/local/bin" $STD uv tool install apprise
+msg_ok "Installed Apprise"
+
+msg_info "Setting up Directories"
+mkdir -p /opt/amutorrent/server/data /opt/amutorrent/server/logs
+msg_ok "Set up Directories"
+
+msg_info "Configuring aMuTorrent"
+cat <<EOF >/opt/amutorrent/.env
+NODE_ENV=production
+PORT=80
+BIND_ADDRESS=0.0.0.0
+RUNNING_IN_DOCKER=false
+EOF
+msg_ok "Configured aMuTorrent"
+
+msg_info "Creating Service"
+cat <<EOF >/etc/systemd/system/amutorrent.service
+[Unit]
+Description=aMuTorrent Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/amutorrent
+EnvironmentFile=/opt/amutorrent/.env
+ExecStart=/usr/bin/node /opt/amutorrent/server/server.js
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl enable -q --now amutorrent
+msg_ok "Created Service"
+
+motd_ssh
+customize
+cleanup_lxc
