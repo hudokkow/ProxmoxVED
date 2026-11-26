@@ -1,0 +1,51 @@
+{
+  "name": "wg-easy",
+  "slug": "wg-easy",
+  "categories": [
+    4
+  ],
+  "date_created": "2026-11-26",
+  "type": "ct",
+  "platforms": ["pve"],
+  "architectures": ["amd64", "arm64"],
+  "updateable": true,
+  "privileged": true,
+  "interface_port": 80,
+  "documentation": "https://wg-easy.github.io/wg-easy/latest/",
+  "website": "https://wg-easy.github.io/wg-easy/latest/",
+  "repository": "https://github.com/wg-easy/wg-easy",
+  "logo": "https://raw.githubusercontent.com/wg-easy/wg-easy/master/docs/content/assets/logo/logo.png",
+  "description": "wg-easy is a WireGuard VPN manager with a web interface for creating and managing clients, QR codes, expiry and per-client firewall rules. It runs the Node.js server from the upstream source alongside wireguard-tools and iptables on the container.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/wg-easy.sh",
+      "config_path": "/etc/wireguard/wg-easy.db",
+      "resources": {
+        "cpu": 2,
+        "ram": 2048,
+        "hdd": 8,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "Finish the first-run setup in the web UI (admin account and VPN host). Forward UDP 51820 on your router so clients can connect.",
+      "type": "info"
+    },
+    {
+      "text": "The UI is served over plain HTTP on port 80 and sets INSECURE=true so login cookies work. Use a reverse proxy with HTTPS before exposing it to the internet.",
+      "type": "warning"
+    },
+    {
+      "text": "Container is privileged: WireGuard needs NET_ADMIN and iptables. Upstream only documents Docker; this script builds the same Node app from the upstream Dockerfile steps.",
+      "type": "warning"
+    }
+  ]
+}
