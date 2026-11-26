@@ -1,0 +1,51 @@
+{
+  "name": "wg-portal",
+  "slug": "wg-portal",
+  "categories": [
+    4
+  ],
+  "date_created": "2026-11-26",
+  "type": "ct",
+  "platforms": ["pve"],
+  "architectures": ["amd64", "arm64"],
+  "updateable": true,
+  "privileged": true,
+  "interface_port": 80,
+  "documentation": "https://wgportal.org/",
+  "website": "https://wgportal.org/",
+  "repository": "https://github.com/h44z/wg-portal",
+  "logo": "https://raw.githubusercontent.com/h44z/wg-portal/master/docs/assets/images/favicon.png",
+  "description": "WireGuard Portal is a web-based management UI for WireGuard servers. It creates and manages interfaces and peers with QR codes, expiry, user authentication, a REST API and Prometheus metrics, all from a single Go binary.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/wg-portal.sh",
+      "config_path": "/opt/wgportal.env",
+      "resources": {
+        "cpu": 2,
+        "ram": 1024,
+        "hdd": 8,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": "admin@wgportal.local",
+    "password": "wgportal-default"
+  },
+  "notes": [
+    {
+      "text": "Change the default admin password immediately after first login. Create a WireGuard interface in the UI; interfaces listen from UDP 51820, which must be forwarded on your router.",
+      "type": "warning"
+    },
+    {
+      "text": "Needs a privileged container because the portal manages WireGuard through netlink. It deliberately does not create iptables or nftables rules — set those up separately if you need NAT.",
+      "type": "info"
+    },
+    {
+      "text": "Configuration is read from /opt/wgportal.env and the SQLite database lives in /opt/wgportal-data; both survive updates.",
+      "type": "info"
+    }
+  ]
+}
